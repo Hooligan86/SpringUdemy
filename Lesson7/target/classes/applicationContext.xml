@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+    <bean id="RockMusicBean" class="com.hooligan.springcourse.RockMusic">
+    </bean>
+    <bean id="RapMusicBean" class="com.hooligan.springcourse.RapMusic">
+    </bean>
+    <bean id="ClassicalMusicBean" class="com.hooligan.springcourse.ClassicalMusic">
+    </bean>
+
+
+
+    <bean id="musicPlayer" class="com.hooligan.springcourse.MusicPlayer">
+        <!--            <constructor-arg ref="musicBean" />  -->
+        <constructor-arg>
+            <list>
+                <ref bean="RapMusicBean" />
+                <ref bean="RockMusicBean" />
+                <ref bean="ClassicalMusicBean" />
+            </list>
+        </constructor-arg>
+
+        <property name="volume" value="${musicPlayer.volume}"/>
+        <property name="name" value="${musicPlayer.name}"/>
+    </bean>
+
+</beans>
